@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Task } from "../../Task";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { UiService } from "../../services/ui.service";
 
 @Component({
   selector: "app-task-item",
@@ -12,6 +13,13 @@ export class TaskItemComponent implements OnInit {
   @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter();
   @Output() onToggleReminder: EventEmitter<Task> = new EventEmitter();
   faTimes = faTimes;
+  showAddTasks: boolean = false;
+
+  constructor(
+    private uiService: UiService
+  ) {
+    this.uiService.onToggle().subscribe(value => this.showAddTasks = value);
+  }
 
   ngOnInit() {}
 
